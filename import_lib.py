@@ -9,50 +9,53 @@ def install(package):
 
 def check_lib():
 	try:
-		import urllib3
+		import urllib2
 	except Exception as e:
-		print "+++++++++++ NO urllib3 ++++++++++++++++", e
-	else:
-		try:
-			install('urllib3')
-		except Exception as e:
-			print "==============cant install urllib3 ================="
-		
+		print "+++++++++++ NO urllib2 ++++++++++++++++", e
+		# COPY THIS pip.main(['install', 'urllib2'])
+		print "Execute === " , "pip.main(["+'install'+"," +'urllib2'+ "])"
+	# else:
+		# try:
+		# 	install('urllib3')
+		# except Exception as e:
+		# 	print "==============cant install urllib3 ================="
 
 	try:
 		from PyPDF2 import PdfFileMerger
 	except Exception as e:
 		print "+++++++++++ NO PyPDF2 ++++++++++++++++",e
-	else:
-		try:
-			install('PyPDF2')
-		except Exception as e:
-			print "==============cant install PyPDF2 ================="
-		
+		# COPY THIS pip.main(['install', 'PyPDF2'])
+		print "Execute === " , "pip.main(["+'install'+"," +'PyPDF2'+ "])"
+	# else:
+		# try:
+		# 	install('PyPDF2')
+		# except Exception as e:
+		# 	print "==============cant install PyPDF2 ================="
 	try:
 		import datetime
 	except Exception as e:
 		print "+++++++++++ NO datetime ++++++++++++++++",e
-	else:
-		try:
-			install('datetime')
-		except Exception as e:
-			print "==============cant install datetime ================="
+	# else:
+	# 	try:
+	# 		install('datetime')
+	# 	except Exception as e:
+	# 		print "==============cant install datetime ================="
 		
 	try:
 		from bs4 import BeautifulSoup
 	except Exception as e:
 		print "+++++++++++ NO bs4 ++++++++++++++++",e
-	else:
-		try:
-			install('bs4')
-		except Exception as e:
-			print "==============cant install datetime ================="
-
+		# COPY THIS pip.main(['install', 'bs4'])
+		print "Execute === " , "pip.main(["+'install'+"," +'bs4'+ "])"
+	# else:
+		# try:
+		# 	install('bs4')
+		# except Exception as e:
+		# 	print "==============cant install datetime ================="
 
 	# os.system('ls')
 
-	print " =================================================================== "
+	print " =============Above cmd in QPython================================ "
 
 	
 # try:
