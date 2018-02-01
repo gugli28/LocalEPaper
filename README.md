@@ -1,9 +1,8 @@
-
-#### My Papa asked to how do I get local newspaper online.
-#### And this script was created.
-#### I thought of creating a cron job in my android but apparently it requires the android system to be rooted.
-#### Finally use Qpython Application on Android to run this script.
-#### came across SL4A but due to very less information on google I couldn't implement it.
+My Papa asked to how do I get local newspaper online.
+And this script was created.
+I thought of creating a cron job in my android but apparently it requires the android system to be rooted.
+Finally use Qpython Application on Android to run this script.
+came across SL4A but due to very less information on google I couldn't implement it.
 
 ## What does this script do ?
   * This script basically dowloads the individual pdf file of the news paper present on the website `http://epaper.jagran.com/homepage.aspx` .
