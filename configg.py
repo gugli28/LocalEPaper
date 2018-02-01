@@ -1,0 +1,3 @@
+fromaddr = ""
+password = ""
+toaddr = ""
