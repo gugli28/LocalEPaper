@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from bs4 import BeautifulSoup
 
-# import urllib2
-import urllib3
+import urllib2
+#import urllib3
 import Cur_date
 
 # browser = webdriver.Firefox()
@@ -22,12 +22,13 @@ def getPages():
 	# url = "http://epaper.jagran.com/epaper/01-feb-2018-218-Sitamarhi-Page-1.html#"
 	# url = "http://epaper.jagran.com/epaper/31-jan-2018-218-Sitamarhi-Page-1.html#"
 	print url
-	# html_page = urllib2.urlopen(url)
-	http = urllib3.PoolManager()
+	html_page = urllib2.urlopen(url)
+	# http = urllib3.PoolManager()
 
-	html_page = http.request('GET', url)
+	# html_page = http.request('GET', url)
 	# soup = BeautifulSoup(html_page.data,'lxml')
-	soup = BeautifulSoup(html_page.data)
+	# soup = BeautifulSoup(html_page.data,"lxml")
+	soup = BeautifulSoup(html_page,"html.parser")
 	# print soup.prettify()
 
 	select = soup.find('select',{'id':'Gotopage'})
