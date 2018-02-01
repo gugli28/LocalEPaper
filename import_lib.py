@@ -1,6 +1,7 @@
 import pip
 import os
 def install(package):
+	# this cmd is used to install pkg in Qpython
     pip.main(['install', package])
 
 # Example
@@ -8,18 +9,7 @@ def install(package):
 #     install('argh')
 
 def check_lib():
-	try:
-		import urllib2
-	except Exception as e:
-		print "+++++++++++ NO urllib2 ++++++++++++++++", e
-		# COPY THIS pip.main(['install', 'urllib2'])
-		print "Execute === " , "pip.main(["+'install'+"," +'urllib2'+ "])"
-	# else:
-		# try:
-		# 	install('urllib3')
-		# except Exception as e:
-		# 	print "==============cant install urllib3 ================="
-
+	
 	try:
 		from PyPDF2 import PdfFileMerger
 	except Exception as e:
@@ -31,15 +21,6 @@ def check_lib():
 		# 	install('PyPDF2')
 		# except Exception as e:
 		# 	print "==============cant install PyPDF2 ================="
-	try:
-		import datetime
-	except Exception as e:
-		print "+++++++++++ NO datetime ++++++++++++++++",e
-	# else:
-	# 	try:
-	# 		install('datetime')
-	# 	except Exception as e:
-	# 		print "==============cant install datetime ================="
 		
 	try:
 		from bs4 import BeautifulSoup
