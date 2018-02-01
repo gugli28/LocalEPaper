@@ -1,7 +1,9 @@
 import os
 
 import configg
+import pip
 
+os.system("python -m pip install bs4")
 
 print  type(os.system('pwd'))
 
