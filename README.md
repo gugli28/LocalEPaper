@@ -1,7 +1,8 @@
-My Papa asked to how do I get local newspaper online.
+My Papa asked me how do I get local newspaper online.
 And this script was created.
 I thought of creating a cron job in my android but apparently it requires the android system to be rooted.
-Finally used Qpython Application on Android to run this script.
+Used Qpython Application on Android to run this script. I still have to trigger this script manually in order to get e-paper.
+Still finding an approach to trigger this script automatically in my Android.
 
 
 ## What does this script do ?
