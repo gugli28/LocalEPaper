@@ -38,10 +38,10 @@ def main():
 def getPrevDayDate():
 	yesterday = datetime.datetime.today() - datetime.timedelta(days = 1)
 	# yesterday.strftime('%m%d%y')
-
-	# print "YESTER = ",yesterday.day
-
-	return yesterday.day
+	day = yesterday.day
+	day = str(0)+str(day) if day<10 else str(day)
+	print "YESTER = ",day
+	return day
 
 def getDay():
 	d = datetime.datetime.today()
