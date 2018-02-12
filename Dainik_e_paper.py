@@ -39,13 +39,14 @@ for pageno in xrange(1,pages):
 		
 		flag = pdf_merger.check_valid_pdf(file_path)
 		if(flag == 0):
-			break #As soon as it gets a valid pdf
+			pdf_docs.append(file_path)
+			break #As soon as it gets a valid pdf add to the list 'pdf_docs' else skip
 		else:
 			os.remove(file_path)
 			print "PAGE NO",pageno,"with city =", city, "DONT EXIST"
 		
 		
-	pdf_docs.append(file_path)
+	# pdf_docs.append(file_path)
 
 
 
