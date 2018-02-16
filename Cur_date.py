@@ -31,10 +31,19 @@ print('Current micro seconds: ', d.microsecond)
 def main():
 	date = getCurDate()
 	print "DATE=====" , date
-	print getAbbMon()
-	getPrevDayDate()
+	print "Prev Day Date = " , getPrevDayDate()
+	print "Day = ", getDay()
 
+	print "Abb month = ",getAbbMon()
+	print "Cur Date = ", getCurDate()
+	
+	print "StrfTime = ", strfTime()
 
+def strfTime():
+	now = datetime.datetime.now()
+	return now.strftime('%Y-%m-%d')
+
+	
 def getPrevDayDate():
 	yesterday = datetime.datetime.today() - datetime.timedelta(days = 1)
 	# yesterday.strftime('%m%d%y')
