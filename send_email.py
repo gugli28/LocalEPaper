@@ -2,6 +2,7 @@
 # from your Gmail account 
  
 # libraries to be imported
+#!/usr/bin/env python3
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -13,6 +14,7 @@ import configg
 
 def main():
     send_mail(configg.fromaddr,configg.password,configg.toaddr,"NewsPaper","text.txt","/home/gugli/Documents/script_py/Dainik_Jagron/text.txt")
+
 
 def send_mail(fromaddr,password,toaddr,subject,file_name,file_path):
 	# instance of MIMEMultipart
@@ -68,7 +70,8 @@ def send_mail(fromaddr,password,toaddr,subject,file_name,file_path):
 	text = msg.as_string()
 	 
 	# sending the mail
-	s.sendmail(fromaddr, toaddr, text)
+	# s.sendmail(fromaddr, toaddr, text)
+	s.sendmail(msg['From'], msg["To"].split(","),text)
 	 
 	# terminating the session
 	s.quit()
@@ -77,3 +80,7 @@ def send_mail(fromaddr,password,toaddr,subject,file_name,file_path):
 
 if __name__ == "__main__":
     main()
+
+
+## sending multiple recepeint and also for the cc
+# https://stackoverflow.com/questions/8856117/how-to-send-email-to-multiple-recipients-using-python-smtplib
