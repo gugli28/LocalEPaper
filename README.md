@@ -35,3 +35,6 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
   * you might have to turn on "Allow less secure apps for your emailid"
   ## SMTPAuthenticationError
     * https://stackoverflow.com/questions/16512592/login-credentials-not-working-with-gmail-smtp
+
+## Sample execution video in QPython
+	[![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](https://photos.app.goo.gl/2reXOkKhmu8rMlkx1)
