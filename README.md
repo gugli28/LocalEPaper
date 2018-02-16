@@ -14,9 +14,9 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
   * As my main motto was to run it on android I have separated what lib are to be imported and what cmd are needed to install them in QPython ( Android App ).
 
 ## Conditional Cron
-  * when ever my system is started the script first checks the txt file.
-  * If the logged date is of today than the script dont run
-  * else the script is run and after completon it logs todays date in the txt( ` checkCronStatus.txt` ) file 
+  * whenever my system is started the script first checks the txt ( ` checkCronStatus.txt` ) file.
+  * If the logged date is of today than the script doesn't execute
+  * Else the script is executed and after completon it logs todays date in the txt file 
 
 ## IN QPython 
   * install Qpython 
