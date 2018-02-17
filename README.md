@@ -39,9 +39,5 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
 ## Sample execution video in QPython
 
    * [Watch the video](https://photos.app.goo.gl/2reXOkKhmu8rMlkx1)
-<<<<<<< HEAD
 ## Email sample 
-   * 
-=======
-
->>>>>>> 3ce9787406fb8667dbefba7c038d547bb2fbf9b7
+   * ![image](Email_sample.jpeg)
