@@ -22,7 +22,8 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
   * install Qpython 
   * open terminal 
   * execute `pip.main(['install', 'bs4'])`
-  * execute `pip.main(['install', 'PyPDF2'])`
+  * execute `pip.main(['install', 'PyPDF2'])
+  * I have attached a sample of execution in Qpython. However I have changed the code for setting up conditional cron in Ubuntu.
 
 ## RUN
   * change the config file
