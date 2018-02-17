@@ -37,4 +37,5 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
     * https://stackoverflow.com/questions/16512592/login-credentials-not-working-with-gmail-smtp
 
 ## Sample execution video in QPython
-	[![Watch the video](https://photos.app.goo.gl/2reXOkKhmu8rMlkx1)]
+
+![Watch the video](https://photos.app.goo.gl/2reXOkKhmu8rMlkx1)
