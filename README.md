@@ -38,4 +38,5 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
 
 ## Sample execution video in QPython
 
-![Watch the video](https://photos.app.goo.gl/2reXOkKhmu8rMlkx1)
+   * [Watch the video](https://photos.app.goo.gl/2reXOkKhmu8rMlkx1)
+
