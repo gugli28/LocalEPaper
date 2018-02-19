@@ -38,6 +38,8 @@ def main():
 	print "Cur Date = ", getCurDate()
 	
 	print "StrfTime = ", strfTime()
+	now = datetime.datetime.now()
+	print now
 
 def strfTime():
 	now = datetime.datetime.now()
