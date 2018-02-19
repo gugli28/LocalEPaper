@@ -11,17 +11,19 @@ import get_pages
 
 import send_email
 import configg
-
+import datetime
 ##Cron job 
 import checkCronJob
 
 
 def main():
+	now = datetime.datetime.now()
+	print " * Time of RUN : ",now
 	hack_paper()
 
 
 def hack_paper():
-
+	
 	status = checkCronJob.checkCronStatus()
 	print status
 	if(status == 0):
