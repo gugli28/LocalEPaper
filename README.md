@@ -22,7 +22,7 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
   * install Qpython 
   * open terminal 
   * execute `pip.main(['install', 'bs4'])`
-  * execute `pip.main(['install', 'PyPDF2'])
+  * execute `pip.main(['install', 'PyPDF2'])`
   * I have attached a sample of execution in Qpython. However I have changed the code for setting up conditional cron in Ubuntu.
 
 ## RUN
@@ -34,8 +34,8 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
 
 ## ERROR
   * you might have to turn on "Allow less secure apps for your emailid"
-  ## SMTPAuthenticationError
-    * https://stackoverflow.com/questions/16512592/login-credentials-not-working-with-gmail-smtp
+  * SMTPAuthenticationError : Use below link to check enabling access for less secure app on gmail
+  * https://stackoverflow.com/questions/16512592/login-credentials-not-working-with-gmail-smtp
 
 ## Sample execution video in QPython
 
