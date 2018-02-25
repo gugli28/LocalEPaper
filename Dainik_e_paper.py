@@ -73,8 +73,11 @@ def hack_paper():
 	final_file_path = dir_path + "/" + todaysDate+".pdf"
 	pdf_merger.FileMerger(pdf_docs, final_file_path)
 
+	akhbaar = u'\u0905'  + u'\u0916' +  u'\u093c'+ u'\u092c' + u'\u093e' + u'\u0930'
+	dinakit =  u'\u0926' + u'\u093f'  +  u'\u0928'+ u'\u093e' + u'\u0902' + u'\u0915' + u'\u093f'  + u'\u0924'
+	# print akhbaar +' ' +dinakit
 
-	subject = "epaper dated "+ todaysDate
+	subject = akhbaar +' ' +dinakit+' ' + todaysDate
 
 	# file_path = dir_path + "/" + final_file_name
 
@@ -83,6 +86,14 @@ def hack_paper():
 	# file_path = cd_dir_path + "/" + final_file_name
 
 	try:
+		## done in case when the more than one scripts run simultaneously. 
+		##this can happen when network is slow or the script 1 is taking long enough time to execute
+		print "Checking if mail is already sent ..... "
+		status = checkCronJob.checkCronStatus()
+		print status
+		if(status == 0):
+			print "Mail has been sent already..."
+			return
 		print "SENDING EMAIL..............."
 		send_email.send_mail(configg.fromaddr,configg.password,configg.toaddr,subject,todaysDate+".pdf",final_file_path)
 
