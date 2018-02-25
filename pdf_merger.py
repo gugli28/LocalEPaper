@@ -27,6 +27,11 @@ def check_valid_pdf(file_path):
 		
 def FileMerger(pdfs, file_path):
 	# dir_path = os.path.dirname(os.path.realpath(__file__))
+	filestatus = os.path.isfile(file_path)
+	if filestatus :
+		print "file already MERGED :)))))))))))"
+		return
+		
 	for pdf in pdfs:
 		merger.append(pdf)
 	merger.write(file_path)
