@@ -8,8 +8,8 @@ from crontab import CronTab
 
 my_cron = CronTab(user='gugli')
 def main():
-	remove_chron()
-	add_chron('cd /home/gugli/Documents/script_py/Dainik_Jagron && /usr/bin/python /home/gugli/Documents/script_py/Dainik_Jagron/Dainik_e_paper.py','e-dainik')
+	# remove_chron()
+	# add_chron('cd /home/gugli/Documents/script_py/Dainik_Jagron && /usr/bin/python /home/gugli/Documents/script_py/Dainik_Jagron/Dainik_e_paper.py','e-dainik')
 	add_chron('cd /home/gugli/Documents/script_py/Dainik_Jagron && /usr/bin/python /home/gugli/Documents/script_py/Dainik_Jagron/writeDate.py', 'dateinfo')
 
 def remove_chron():
