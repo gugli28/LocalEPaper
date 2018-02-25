@@ -13,7 +13,12 @@ from email import encoders
 import configg
 
 def main():
-    send_mail(configg.fromaddr,configg.password,configg.toaddr,"NewsPaper","text.txt","/home/gugli/Documents/script_py/Dainik_Jagron/text.txt")
+	first_name = u'\u092e' + u'\u0928' + u'\u094b' + u'\u091c'
+	last_name = u'\u0905' + u'\u0935' + u'\u0938' + u'\u094d' \
+	+ u'\u0925' + u'\u0940'
+ 
+	print first_name + ' ' + last_name
+	send_mail(configg.fromaddr,configg.password,configg.toaddr, first_name + ' ' + last_name ,"text.txt","/home/gugli/Documents/script_py/Dainik_Jagron/text.txt")
 
 
 def send_mail(fromaddr,password,toaddr,subject,file_name,file_path):
@@ -30,10 +35,19 @@ def send_mail(fromaddr,password,toaddr,subject,file_name,file_path):
 	msg['Subject'] = subject
 	 
 	# string to store the body of the mail
-	body = "Please Find Attached NewsPaper"
+
+	a = u'\u0905'  + u'\u0916' +  u'\u093c'+ u'\u092c' + u'\u093e' + u'\u0930'
+	k = u'\u0915'  + u'\u0943' +  u'\u092a'+ u'\u092f' + u'\u093e' 
+	s = u'\u0938'  + u'\u0902' +  u'\u0932'+ u'\u0917' + u'\u094d' + u'\u0928'
+	d = u'\u0922'  + u'\u0942' +  u'\u0902'+ u'\u0922' + u'\u093f' + u'\u090f'
+
+	##Hindi translation for "Please find attached newspaper"
+	body =  k+ ' ' + s + ' ' +a+ ' ' + d + '. . .'
+	
 	 
 	# attach the body with the msg instance
-	msg.attach(MIMEText(body, 'plain'))
+	# msg.attach(MIMEText(body, 'plain')) ##in case of english font: no unicode char
+	msg.attach(MIMEText(body.encode('utf-8'), 'plain'))
 	 
 	# # open the file to be sent 
 	# filename = "File_name_with_extension"
