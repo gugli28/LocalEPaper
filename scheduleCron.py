@@ -30,6 +30,9 @@ def add_chron(cmd,com):
 
 	## */10 * * * * cd /home/gugli/Documents/script_py/Dainik_Jagron && /usr/bin/python /home/gugli/Documents/script_py/Dainik_Jagron/Dainik_e_paper.py >>/home/gugli/Documents/script_py/Dainik_Jagron/logfile.tx$
 
+	## 0,10,20,30,40,50 */1 * * * cd /home/gugli/Documents/script_py/Dainik_Jagron && /usr/bin/python /home/gugli/Documents/script_py/Dainik_Jagron/Dainik_e_paper.py >>/home/gugli/Documents/script_py/Dainik_Jag$
+
+
 
 if __name__ == "__main__":
     main()
