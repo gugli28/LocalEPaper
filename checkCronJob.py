@@ -22,15 +22,15 @@ def checkCronStatus():
 
 	logged_date = datetime.datetime.strptime(str_date, '%Y-%m-%d')
 
-	print "logged_date = ", logged_date
+	# print "logged_date = ", logged_date
 	str_today_date = datetime.datetime.strptime(Cur_date.strfTime(), '%Y-%m-%d')
-	print "str_today_date = ",str_today_date
+	# print "str_today_date = ",str_today_date
 
 	if( str_today_date > logged_date ):
-		print "true"
+		print "NOT SENT"
 		return 1 ## the job is not done today.. YET . returns 1 so that further process is to be initiated
 	else:
-		print "flase"
+		# print "Logged date is same as todays date"
 		return 0 ## return 0 coz job is already done today
 
 
