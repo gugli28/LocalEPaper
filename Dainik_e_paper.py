@@ -8,6 +8,7 @@ import Cur_date
 import os
 import Delete_Files
 import get_pages
+import checkFileSize
 
 import send_email
 import configg
@@ -18,14 +19,21 @@ import checkCronJob
 
 def main():
 	now = datetime.datetime.now()
-	print " * Time of RUN : ",now
+	print "* Time of RUN : ",now
+	if (datetime.datetime.today().hour < 12):
+		print "This script is scheduled to run only after 1200hrs; "
+		print "change it in the code if you want otherwise"
+		print "------------------------SLEEP TIME-------------------------------"
+		return
+
 	hack_paper()
 
 
 def hack_paper():
 	
 	status = checkCronJob.checkCronStatus()
-	print status
+	# print status
+
 	if(status == 0):
 		print "JOB's already done"
 		return
@@ -54,25 +62,41 @@ def hack_paper():
 			file_path = dir_path + "/" + str(pageno)+".pdf"
 			print "Downloading...page no = ", pageno
 
-			download.download_file(url,file_path)
+			## this fn ret value that ensures if we have got valid pdf, if not loop continues
+			flag = download.download_file(url,file_path)
 
 			
-			flag = pdf_merger.check_valid_pdf(file_path)
+			# flag = pdf_merger.check_valid_pdf(file_path)
+
 			if(flag == 0):
 				pdf_docs.append(file_path)
 				break #As soon as it gets a valid pdf add to the list 'pdf_docs' else skip
 			else:
-				os.remove(file_path)
+				# os.remove(file_path)
 				print "PAGE NO",pageno,"with city =", city, "DONT EXIST"
+				continue
 			
-			
-		# pdf_docs.append(file_path)
+		
 
 
-
+	# print pdf_docs
 	final_file_path = dir_path + "/" + todaysDate+".pdf"
 	pdf_merger.FileMerger(pdf_docs, final_file_path)
 
+	## if the compression dont compress to the required size than the last option is to eliminate some files;
+	checkSizeFlag = checkFileSize.check(final_file_path)
+	k = 1
+
+	while checkSizeFlag:
+		os.remove(final_file_path) # have to remove becoz pdf_merger only merges if th ethe file dont exist
+
+		pdf_merger.FileMerger(pdf_docs[:-k], final_file_path)
+		checkSizeFlag = checkFileSize.check(final_file_path)
+		print "++++++++++ Removed last %s" %(k),'file +++++++++++++'
+		k = k + 1 
+	##=======================================================================================================
+
+	##Hindi text 
 	akhbaar = u'\u0905'  + u'\u0916' +  u'\u093c'+ u'\u092c' + u'\u093e' + u'\u0930'
 	dinakit =  u'\u0926' + u'\u093f'  +  u'\u0928'+ u'\u093e' + u'\u0902' + u'\u0915' + u'\u093f'  + u'\u0924'
 	# print akhbaar +' ' +dinakit
