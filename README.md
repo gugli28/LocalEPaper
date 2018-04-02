@@ -41,4 +41,4 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
 
    * [Watch the video](https://photos.app.goo.gl/2reXOkKhmu8rMlkx1)
 ## Email sample 
-   * ![image](Email_sample.jpeg)
+   * ![image](Email_sample2.jpeg)
