@@ -37,9 +37,11 @@ def main():
 	print "Abb month = ",getAbbMon()
 	print "Cur Date = ", getCurDate()
 	
-	print "StrfTime = ", strfTime()
+	print "StrfTime = ", strfTime(), type(strfTime())
 	now = datetime.datetime.now()
 	print now
+	print "=============="
+	print getCurDate_dashed()
 
 def strfTime():
 	now = datetime.datetime.now()
@@ -75,6 +77,18 @@ def getCurDate():
 	day = str(0)+str(day) if day<10 else str(day)
 
 	date = (day)+(month)+str(year)
+
+	return date
+
+def getCurDate_dashed():
+	d = datetime.datetime.today()
+	year = d.year
+	month = d.month
+	month = str(0)+str(month) if month<10 else str(month)
+	day = d.day
+	day = str(0)+str(day) if day<10 else str(day)
+
+	date = (day)+"-"+(month)+"-"+str(year)
 
 	return date
 
