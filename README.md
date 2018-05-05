@@ -23,6 +23,7 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
   * So I choose to use online website `http://pdfcompressor.com/` (will use 'PCo' instead from now on). Its amazingly awesome. This site compressed file by 90%.
   * checkout the file `PdfCompressor.py`.
 
+
 ## TOR - Python - Selenium - webdriver
   * These tools are no less than  _Bramhastra_ Haahha! 
   * Well while using selenium for the PCo, the main challenge was to not let my IP get blocked. This led me to use TOR.
@@ -32,6 +33,7 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
   * This file tracks any changes in the directory.
   * Use this to make sure that unzipping of file is done only after file is completely downloaded.
   * check the file `watchdogg.py`
+  * Used `tqdm` to view the dowload progress. check `download.py`.
 
 ## IN QPython 
   * install Qpython 
