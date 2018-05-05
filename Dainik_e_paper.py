@@ -1,5 +1,5 @@
-import import_lib
-import_lib.check_lib()
+# import import_lib
+# import_lib.check_lib()
 
 
 import download
@@ -16,33 +16,40 @@ import datetime
 ##Cron job 
 import checkCronJob
 
+import TorFirefox
+import PdfCompressor
+# import startTor
+import hindustan
 
 def main():
 	now = datetime.datetime.now()
 	print "* Time of RUN : ",now
+
 	if (datetime.datetime.today().hour < 12):
 		print "This script is scheduled to run only after 1200hrs; "
 		print "change it in the code if you want otherwise"
 		print "------------------------SLEEP TIME-------------------------------"
 		return
-
+	# status = checkCronJob.checkCronStatus("/home/gugli/Documents/script_py/Dainik_Jagron/checkTorWatchdog.txt")
+	# start_tor_watchdog(status)
 	hack_paper()
 
+	hindustan.Hindustan()
 
 def hack_paper():
 	
-	status = checkCronJob.checkCronStatus()
+	status = checkCronJob.checkCronStatus("/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatus.txt")
 	# print status
 
 	if(status == 0):
-		print "JOB's already done"
+		print "Dainiks' JOB's already done"
 		return
 
-
+	
 	todaysDate = Cur_date.getCurDate()
 
 	pdf_docs = []
-	pages = get_pages.getPages()+1
+	pages = get_pages.getPages()+1 #because for loop excludes last element
 
 	# pages = 2
 
@@ -83,15 +90,36 @@ def hack_paper():
 	final_file_path = dir_path + "/" + todaysDate+".pdf"
 	pdf_merger.FileMerger(pdf_docs, final_file_path)
 
+
+	###======================================================================
+	##4th may compression using a pdfcmpressor
+	##tor browser to compress file using slelnium ======
+	
+	browser = TorFirefox.getFirefoxBrowser()
+	url = 'http://pdfcompressor.com/'
+	browser.get(url)
+	
+	PdfCompressor.compressPDF(browser, final_file_path)
+	print " ||||||| pdf = ", final_file_path, "uploaded ||||||||||"
+		##Downloading the compressed file
+	PdfCompressor.downloadCompPDF(browser)
+		## and unzipping it in the current folder
+		# print os.getcwd()
+	TorFirefox.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
+	os.remove(os.getcwd()+"/pdfcompressor.zip")
+	###======================================================================
+	
+
+	final_file_path_new = dir_path + "/" + todaysDate+"-min.pdf" ## there is addition of '-min' on downloading compressed fle
 	## if the compression dont compress to the required size than the last option is to eliminate some files;
-	checkSizeFlag = checkFileSize.check(final_file_path)
+	checkSizeFlag = checkFileSize.check(final_file_path_new)
 	k = 1
 
 	while checkSizeFlag:
-		os.remove(final_file_path) # have to remove becoz pdf_merger only merges if th ethe file dont exist
+		os.remove(final_file_path_new) # have to remove becoz pdf_merger only merges if the file dont exist
 
-		pdf_merger.FileMerger(pdf_docs[:-k], final_file_path)
-		checkSizeFlag = checkFileSize.check(final_file_path)
+		pdf_merger.FileMerger(pdf_docs[:-k], final_file_path_new)
+		checkSizeFlag = checkFileSize.check(final_file_path_new)
 		print "++++++++++ Removed last %s" %(k),'file +++++++++++++'
 		k = k + 1 
 	##=======================================================================================================
@@ -101,7 +129,7 @@ def hack_paper():
 	dinakit =  u'\u0926' + u'\u093f'  +  u'\u0928'+ u'\u093e' + u'\u0902' + u'\u0915' + u'\u093f'  + u'\u0924'
 	# print akhbaar +' ' +dinakit
 
-	subject = akhbaar +' ' +dinakit+' ' + todaysDate
+	subject = "Dainik Jagron "+akhbaar +' ' +dinakit+' ' + todaysDate
 
 	# file_path = dir_path + "/" + final_file_name
 
@@ -113,15 +141,16 @@ def hack_paper():
 		## done in case when the more than one scripts run simultaneously. 
 		##this can happen when network is slow or the script 1 is taking long enough time to execute
 		print "Checking if mail is already sent ..... "
-		status = checkCronJob.checkCronStatus()
+		status = checkCronJob.checkCronStatus("/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatus.txt")
 		print status
 		if(status == 0):
 			print "Mail has been sent already..."
 			return
 		print "SENDING EMAIL..............."
-		send_email.send_mail(configg.fromaddr,configg.password,configg.toaddr,subject,todaysDate+".pdf",final_file_path)
+		send_email.send_mail(configg.fromaddr,configg.password,configg.toaddr,subject,todaysDate+".pdf",final_file_path_new)
 
 		pdf_docs.append(final_file_path)
+		pdf_docs.append(final_file_path_new)
 		Delete_Files.del_files(pdf_docs)
 
 		##updating cron Flag file when the job is done for the day
@@ -131,10 +160,20 @@ def hack_paper():
 
 		
 	except Exception as e:
-		Delete_Files.del_files(pdf_docs)
+		# Delete_Files.del_files(pdf_docs)
 		print "COULDNOT SEND MAIL...."
 		print e
 
+	TorFirefox.closeBrowser(browser)
 
+
+'''
+def start_tor_watchdog(status)
+	if(status == 0):
+		print "Tor and watchdog already started today"
+		return
+	startTor.start()
+
+'''
 if __name__ == "__main__":
     main()
