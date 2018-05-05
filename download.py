@@ -1,3 +1,8 @@
+'''
+
+Downloads th file. have also added tqdm to view the progress of the download
+'''
+
 import urllib2
 import os
 import CompressFile
