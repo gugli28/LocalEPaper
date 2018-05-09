@@ -18,11 +18,12 @@ def main():
 	browser = TorFirefox.getFirefoxBrowser()
 	url = 'http://pdfcompressor.com/'
 	browser.get(url)
-	downloadCompPDF(browser)
 	dir_path = os.path.dirname(os.path.realpath(__file__))
-	file_path = dir_path + "/" + "h2.pdf"
+	file_path = dir_path + "/" + "2.pdf"
 	print file_path
 	compressPDF(browser, file_path)
+	downloadCompPDF(browser)
+	TorFirefox.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
 	browser.close()
 
 def compressPDF(browser, filepath):

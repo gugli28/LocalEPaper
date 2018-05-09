@@ -10,8 +10,8 @@ my_cron = CronTab(user='gugli')
 def main():
 	# remove_chron()
 	# add_chron('cd /home/gugli/Documents/script_py/Dainik_Jagron && /usr/bin/python /home/gugli/Documents/script_py/Dainik_Jagron/Dainik_e_paper.py','e-dainik')
-	# add_chron('cd /home/gugli/Documents/script_py/Dainik_Jagron && /usr/bin/python /home/gugli/Documents/script_py/Dainik_Jagron/writeDate.py', 'dateinfo')
-	add_chron('"/home/gugli/Downloads/tor-browser_en-US/Browser/start-tor-browser" --detach','TOR')
+	add_chron('cd /home/gugli/Documents/script_py && /usr/bin/python /home/gugli/Documents/script_py/headless.py', 'headless')
+	# add_chron('"/home/gugli/Downloads/tor-browser_en-US/Browser/start-tor-browser" --detach','TOR')
 def remove_chron():
 	for job in my_cron:
 		my_cron.remove(job)

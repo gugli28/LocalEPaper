@@ -11,7 +11,7 @@ import pdf_merger
 from tqdm import tqdm
 import requests
 import math
-
+import time
 
 import PdfCompressor
 def main():
@@ -24,7 +24,7 @@ def main():
     # filestatus = os.path.isfile('2.pdf')
     # if filestatus :
     #     print "file already downloaded"
-
+'''
 def download_file(download_url,file_path):
 	## check if file already exists
 	filestatus = os.path.isfile(file_path)
@@ -35,13 +35,12 @@ def download_file(download_url,file_path):
 	dup_file_path = dir_path + "/" +"comp.pdf"
 
 	## file written in duplicate file name that is later compressed and file name is changed to file_path
-	'''
-	response = urllib2.urlopen(download_url)
-	file = open( dup_file_path , 'w')
-	file.write(response.read())
-	file.close()
-	print("Completed")
-	'''
+	# response = urllib2.urlopen(download_url)
+	# file = open( dup_file_path , 'w')
+	# file.write(response.read())
+	# file.close()
+	# print("Completed")
+	
 	Download_with_progress(download_url, dup_file_path)
 
 	### compress only valid pdf file
@@ -54,8 +53,8 @@ def download_file(download_url,file_path):
 	print "FLAG = ", flag
 	return flag
 
+'''
 
-## this is  for hindustan paper
 def download_file2(download_url,file_path, browser):
 	## check if file already exists
 	filestatus = os.path.isfile(file_path)
@@ -63,17 +62,13 @@ def download_file2(download_url,file_path, browser):
 		# flag = pdf_merger.check_valid_pdf(file_path)
 		# if (flag == 0):
 		print "((((((((((= file already downloaded =)))))))))))"
+		PdfCompressor.compressPDF(browser, file_path)
+		print " ||||||| pdf = ", file_path, "uploaded ||||||||||"
+		time.sleep(3)
 		return 0
 		##if file is present and corrupt then
 		# os.remove(file_path) ##if the file was somehow bad format this will retry dowloading it again
 		
-
-	'''
-	response = urllib2.urlopen(download_url)
-	file = open( file_path , 'w')
-	file.write(response.read())
-	file.close()
-	'''
 	Download_with_progress(download_url, file_path)
 
 	flag = pdf_merger.check_valid_pdf(file_path)

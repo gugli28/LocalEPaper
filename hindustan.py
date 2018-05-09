@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from bs4 import BeautifulSoup
+from pyvirtualdisplay import Display
 import urllib2
 import wget
 import os
@@ -24,8 +25,11 @@ import PdfCompressor
 
 
 pdf_docs_del = [] # this will store the file_path of the files to be deleted
-pdf_docs_merge = []
+pdf_docs_merge = [] ## this will store the file_path of the files to be merged and then deleted
 
+
+## this is use webdriver without display. We will start and close it when needed
+display = Display(visible=0, size=(1024, 768))
 def main():
 	Hindustan()
 
@@ -39,11 +43,12 @@ def Hindustan():
 		return
 	print "==================HINDUSTAN====================="
 	### used ctrl+u to get the javascript of the webpage
-
+	#===================================================================
+	TorFirefox.startDisplay(display)
 	browser = TorFirefox.getFirefoxBrowser()
 	url = 'http://pdfcompressor.com/'
 	browser.get(url)
-
+	#===================================================================
 	dir_path = os.path.dirname(os.path.realpath(__file__))
 	todaysDate = Cur_date.strfTime()
 
@@ -61,7 +66,13 @@ def Hindustan():
 		html_page = urllib2.urlopen(url)
 			
 		soup = BeautifulSoup(html_page,"html.parser")
-		src = soup.find('img',{'id':'imgpage_'+str(pageno)})['src'].replace('ll.jpg', '.pdf').replace('s.png', '.pdf').replace('.jpg', '.pdf');
+		try:
+			src = soup.find('img',{'id':'imgpage_'+str(pageno)})['src'].replace('ll.jpg', '.pdf').replace('s.png', '.pdf').replace('.jpg', '.pdf');
+			
+		except Exception as e:
+			print e
+			print "+++++++++++++++++++IMG tag with id imgpage not found +++++++++++++++++++++"
+			continue
 
 		# print src
 		### they have removed below junk part .. well its good but I had to change the code
@@ -102,9 +113,9 @@ def Hindustan():
 	pdf_merger.FileMerger(pdf_docs_merge, final_file_path)
 
 
-	#close the browser after doint all the shit
+	#close the browser and display after doint all the shit
 	TorFirefox.closeBrowser(browser)
-
+	TorFirefox.closeDisplay(display)
 	##==========================================================================================
 	##we will now check if the file size is under limit or not ( < 25 MB for attachment in gmail)
 	checkSizeFlag = checkFileSize.check(final_file_path)
