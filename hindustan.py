@@ -95,7 +95,15 @@ def Hindustan():
 			# os.remove(file_path)
 			print "-------------PAGE NO ",pageno, "DONT EXIST ----------------------------"
 			continue
-
+		if(pageno == 20):
+			print "    ==== reached page no 20 ====="
+			flag1 = PdfCompressor.downloadCompPDF(browser)
+			if(flag1): #flag1 =0 when there is no fle to be downloaded
+				print "  ===Unzipping first 20 files===="
+				TorFirefox.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
+				os.remove(os.getcwd()+"/pdfcompressor.zip")
+				PdfCompressor.reset_all(browser)
+			
 	##Downloading all compressed file in zip format 
 	
 
