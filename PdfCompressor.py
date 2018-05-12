@@ -24,6 +24,8 @@ def main():
 	compressPDF(browser, file_path)
 	downloadCompPDF(browser)
 	TorFirefox.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
+	reset_all(browser)
+	time.sleep(5)
 	browser.close()
 
 def compressPDF(browser, filepath):
@@ -78,6 +80,12 @@ def downloadCompPDF(browser):
 
 	print browser 
 	return 1
+
+## PDFcompressor takes atmost 20 files 
+def reset_all(browser):
+	print "======== ResettingPDFCompressor =========="
+	btn = browser.find_element_by_id('reset-all')
+	btn.click()
 
 
 if __name__ == "__main__":
