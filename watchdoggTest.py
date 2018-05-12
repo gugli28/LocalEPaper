@@ -22,19 +22,7 @@ class MyHandler(FileSystemEventHandler):
 	patterns=["*.pdf"]
 	print "--- HANDLER"
 
-	def on_any_event(event):
-		print "   ----------on_any_event--------------"
-		if event.is_directory:
-			return None
-
-		elif event.event_type == 'created':
-			# Take any action here when a file is first created.
-			print "Received created event - %s." % event.src_path
-
-		elif event.event_type == 'modified':
-			# Taken any action here when a file is modified.
-			print "Received modified event - %s." % event.src_path
-
+	
 
 	def process(self, event):
 		"""
@@ -45,12 +33,12 @@ class MyHandler(FileSystemEventHandler):
 		event.src_path
 		    path/to/observed/file """
 		print " --------IN pROCESS"
-		print event.src_path[-5:], type(event.src_path)
-		if(event.src_path[-4:]== ".zip."):
-			print "=====HURRAY STR matched====="
+		# print event.src_path[-5:], type(event.src_path)
+		# if(event.src_path[-4:]== ".zip."):
+		# 	print "=====HURRAY STR matched====="
 
-			with open('/home/gugli/Documents/script_py/Dainik_Jagron/checkDownStatus.txt','w') as outFile:
-				outFile.write("DONE")
+		# 	with open('/home/gugli/Documents/script_py/Dainik_Jagron/checkDownStatus.txt','w') as outFile:
+		# 		outFile.write("DONE")
 		# with open(event.src_path, 'r') as xml_source:
 		#     xml_string = xml_source.read()
 		#     parsed = xmltodict.parse(xml_string)
@@ -67,15 +55,15 @@ class MyHandler(FileSystemEventHandler):
 		#     )
 		#     media.save()
 
-	# def on_modified(self, event):
-	# 	print " ------- ON MODIFIED"
-	# 	print event.src_path
-	# 	self.process(event)
+	def on_modified(self, event):
+		print " ------- ON MODIFIED"
+		print event.src_path
+		self.process(event)
 
-	# def on_created(self, event):
-	# 	print " ------- ON CREATED"
-	# 	print event.src_path
-
+	def on_created(self, event):
+		print " ------- ON CREATED"
+		print event.src_path
+		self.process(event)
 	# 	with open('/home/gugli/Documents/script_py/Dainik_Jagron/checkDownStatus.txt','w') as outFile:
 	# 			outFile.write("CREATED")
 
