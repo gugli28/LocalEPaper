@@ -97,6 +97,16 @@ def hack_paper():
 				# os.remove(file_path)
 				print "PAGE NO",pageno,"with city =", city, "DONT EXIST"
 				continue
+			###In case no of pages is more than 20(pdfcompressor.com takes 20 files at max)
+			### dowload, unzip the uploaded files and then reset it.
+		if(pageno == 20):
+			print "    ==== reached page no 20 ====="
+			flag1 = PdfCompressor.downloadCompPDF(browser)
+			if(flag1): #flag1 =0 when there is no fle to be downloaded
+				print "  ===Unzipping first 20 files===="
+				TorFirefox.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
+				os.remove(os.getcwd()+"/pdfcompressor.zip")
+				PdfCompressor.reset_all(browser)
 			
 		
 	flag1 = PdfCompressor.downloadCompPDF(browser)
