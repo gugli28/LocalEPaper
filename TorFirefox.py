@@ -1,14 +1,17 @@
 '''
+
 getFirefoxBrowser():
 	This file creates the object for Firefox webdriver with Tor settings.
 	It also set the downloading preferences and blocks the window pop-up that is shown in firefox after file is downloaded
 
-unzipFile(filepath,destination_folder):
-	Unzips file nly after the it is confirmed that file s completely downloaded
-	
-	checkDownStatus.txt:
-		this file is updated by the file `watchdogg.py` after the zip file is completely downloaded
+
+https://medium.com/@mr_rigden/using-tor-with-the-python-request-library-79015b2606cb
+https://github.com/c0r3dump3d/checktor/blob/master/checktor.py
+
+check how to locate in selenium python
+http://selenium-python.readthedocs.io/locating-elements.html
 '''
+from bs4 import BeautifulSoup
 
 from selenium import webdriver
 
@@ -18,14 +21,13 @@ from pyvirtualdisplay import Display
 import os
 import time
 
-import multiprocessing
-import watchdogg
 
 def main():
 	print os.getcwd()
 	# unzipFile("/home/gugli/Documents/script_py/Dainik_Jagron/pdfcompressor.zip","/home/gugli/Documents/script_py/Dainik_Jagron")
 	b = getFirefoxBrowser()
-	time.sleep(20)
+	time.sleep(10)
+	b.get('http://pdfcompressor.com/')
 	b.close()
 
 def getFirefoxBrowser():
@@ -60,73 +62,14 @@ def getFirefoxBrowser():
 
 	
 	# display.start()
-	browser=webdriver.Firefox(profile)
+	browser=webdriver.Firefox(firefox_profile=profile,executable_path=os.getcwd()+'/geckodriver')
+	print "[################ IP === %s #################]"%(getIP(browser))
 	return browser
 	# return browser,display
 	# browser.get("http://yahoo.com")
 	# browser.save_screenshot("screenshot.png")
 	# browser.close()
 
-
-def unzipFile(filepath,destination_folder):
-	startWatchdog()
-	print "===== unzipFile"
-	cmd = "unzip " + filepath + " -d " +  destination_folder
-
-	# cmd = "jar xvf" + filepath
-	# filestatus = os.path.isfile(filepath)
-	# while( os.path.isfile(filepath) == 0) :
-	# 	time.sleep(5)
-	# 	print "=======File not present, already slept 5 sec since I last checked;======="
-	# 	continue
-	'''
-		while not os.path.exists(filepath):
-			print "     ----sleeping----"
-			time.sleep(10)
-	'''
-	### read checkDownStatus for for the status of the file
-	fileObject = open(os.getcwd()+"/checkDownStatus.txt" ,"r")
-	status = fileObject.read()
-
-	print status
-
-	while( status != "DONE"):
-		fileObject = open(os.getcwd()+"/checkDownStatus.txt" ,"r")
-		status = fileObject.read()
-		print "     ----sleeping----" , status, status != "DONE"
-		time.sleep(5)
-
-	## this check isn't necessary now
-	if os.path.isfile(filepath):
-		os.system(cmd)
-	else:
-		raise ValueError("%s isn't a file!" % filepath)
-
-	fileObject.close()
-
-	
-	# try:
-	# 	with io.FileIO(filepath, "r+") as fileObj:
-
-	# 	'''
-	# 	Deal with case where FTP client uses extensions such as ".part" and '.filepart" for part of the incomplete downloaded file.
-	# 	To do this, make sure file exists before adding it to list of completedFiles.
-	# 	'''
-	# 	if(os.path.isfile(fileName)):
-	# 		completedFiles.append(fileName)
-	# 	print "File=" + file_path + " has completely loaded."
-	# except IOError as ioe:
-	# 	print str(ioe)
-	
-	# while(1):
-	# 	try:
-	# 		os.system(cmd)
-	# 		print "++++++++++++++++++++"
-	# 		break
-	# 	except Exception as e:
-	# 		time.sleep(5)
-	# 		print "=======File not present, already slept 5 sec since I last checked;======="
-	# 		continue
 
 
 def closeBrowser(browser):
@@ -142,28 +85,17 @@ def startDisplay(display):
 	display.start()
 	print "======= Invisible Display Started [visible=0, size=(1024, 768)]===="
 
-	
-def watchdog():
-	### running daemon that checks if the file is downoaded completely or not
-	w = watchdogg.Watcher()
-	w.run()
-
-def startWatchdog():
-	'''
-	### below updation is necessary in order to open watchdog
-	coz after the last step is done (prev run) the file is updated to "DONE"
-	and this same string is also required to close watchdog after all unzipping is done
-	'''
-	with open(os.getcwd()+"/checkDownStatus.txt",'w') as outFile:
-			outFile.write("blah")
-
-
-
-	p1 = multiprocessing.Process(name='p1', target=watchdog)
-	p1.start()
-	# p2 = multiprocessing.Process(name='p', target=sud)
-	# p2.start()
-
+def getIP(browser):
+	r = browser.get('http://httpbin.org/ip')
+	# element = browser.find_element_by_tag_name('body')
+	page_src = browser.page_source
+	soup = BeautifulSoup(page_src,"html.parser")
+	json = soup.find('div',{'id':'json'})
+	print json.text.strip()
+	# print r
+	# print r.text
+	# print element.text
+	return json.text.strip()
 
 if __name__ == "__main__":
     main()

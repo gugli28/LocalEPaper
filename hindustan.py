@@ -44,6 +44,7 @@ def Hindustan():
 	print "==================HINDUSTAN====================="
 	### used ctrl+u to get the javascript of the webpage
 	#===================================================================
+	##only done for pdfcomressor; Not used for dainiks' website; used urllib2
 	TorFirefox.startDisplay(display)
 	browser = TorFirefox.getFirefoxBrowser()
 	url = 'http://pdfcompressor.com/'
@@ -83,13 +84,19 @@ def Hindustan():
 		file_path_del = dir_path + "/h" + str(pageno)+".pdf"
 		#this variable stores the file name of the compressed file yet to be downloaded
 		file_path_merge = dir_path + "/h" + str(pageno)+ "-min" +".pdf" 
-		print "Downloading...page no = ", pageno
-		flag = download.download_file2(pdf_url,file_path_del, browser)
+		
+		## downloads only if the file is not present
+		if (not os.path.isfile(file_path_merge)):
+			print "Downloading...page no = ", pageno
+			## this fn ret value that ensures if we have got valid pdf, if not loop continues
+			flag = download.download_file2(pdf_url,file_path_del, browser)
+			time.sleep(2)
+		else:
+			print "FILE is already present"
 
 		## check valid pdf
-		if(flag == 0):
+		if(os.path.isfile(file_path_merge) or flag == 0):
 			pdf_docs_del.append(file_path_del)
-
 			pdf_docs_merge.append(file_path_merge) 
 		else:
 			# os.remove(file_path)
@@ -100,7 +107,7 @@ def Hindustan():
 			flag1 = PdfCompressor.downloadCompPDF(browser)
 			if(flag1): #flag1 =0 when there is no fle to be downloaded
 				print "  ===Unzipping first 20 files===="
-				TorFirefox.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
+				PdfCompressor.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
 				os.remove(os.getcwd()+"/pdfcompressor.zip")
 				PdfCompressor.reset_all(browser)
 			
@@ -111,7 +118,7 @@ def Hindustan():
 	## and unzipping it in the current folder
 	# print os.getcwd()
 	if(flag1): #flag1 =0 when there is no fle to be downloaded
-		TorFirefox.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
+		PdfCompressor.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
 		os.remove(os.getcwd()+"/pdfcompressor.zip")
 
 	## Merging all the individual files
@@ -137,6 +144,7 @@ def Hindustan():
 		print "++++++++++ Removed last %s" %(k),'file +++++++++++++'
 		k = k + 1 
 
+	pdf_docs_merge.append(final_file_path)
 	##==========================================================================================
 
 	##==========================================================================================
@@ -160,10 +168,9 @@ def Hindustan():
 		print "SENDING EMAIL..............."
 		send_email.send_mail(configg.fromaddr,configg.password,configg.toaddr,subject,todaysDate+".pdf",final_file_path)
 
-		pdf_docs_merge.append(final_file_path)
-		Delete_Files.del_files(pdf_docs_merge)
-		Delete_Files.del_files(pdf_docs_del)
-		print "FILES DELETED"
+		# Delete_Files.del_files(pdf_docs_merge)
+		# Delete_Files.del_files(pdf_docs_del)
+		# print "FILES DELETED"
 		##updating cron Flag file when the job is done for the day
 
 		with open('/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatusH.txt','w') as outFile:
@@ -176,6 +183,16 @@ def Hindustan():
 		print e
 
 
+
+
+
+def delete_files(pdf_docs,pdf_docs_merge):
+	try:
+		Delete_Files.del_files(pdf_docs_merge)
+		Delete_Files.del_files(pdf_docs_del)
+		print "FILES DELETED"
+	except Exception as e:
+		print "=====Files been removed=====",e
 
 if __name__ == "__main__":
     main()

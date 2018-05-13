@@ -82,14 +82,17 @@ def hack_paper():
 			#this variable stores the file name of the compressed file yet to be downloaded
 			file_path_merge = dir_path + "/"+ str(pageno)+ "-min" +".pdf" 
 			
-			print "Downloading...page no = ", pageno
-			## this fn ret value that ensures if we have got valid pdf, if not loop continues
-			flag = download.download_file2(url,file_path,browser)
-			time.sleep(2)
+			if (not os.path.isfile(file_path)):
+				print "Downloading...page no = ", pageno
+				## this fn ret value that ensures if we have got valid pdf, if not loop continues
+				flag = download.download_file2(url,file_path,browser)
+				time.sleep(2)
+			else:
+				print "FILE is already present"
 			
 			# flag = pdf_merger.check_valid_pdf(file_path)
-
-			if(flag == 0):
+			##if file is present move on else check the flag val. Note the flag is assigned if cond-1 is flase
+			if(os.path.isfile(file_path) or flag == 0):
 				pdf_docs.append(file_path)
 				pdf_docs_merge.append(file_path_merge) 
 				break #As soon as it gets a valid pdf add to the list 'pdf_docs' else skip
@@ -104,14 +107,16 @@ def hack_paper():
 			flag1 = PdfCompressor.downloadCompPDF(browser)
 			if(flag1): #flag1 =0 when there is no fle to be downloaded
 				print "  ===Unzipping first 20 files===="
-				TorFirefox.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
+				
+				PdfCompressor.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
 				os.remove(os.getcwd()+"/pdfcompressor.zip")
+				##Resetting the browser to upload other files
 				PdfCompressor.reset_all(browser)
 			
 		
 	flag1 = PdfCompressor.downloadCompPDF(browser)
 	if(flag1): #flag1 =0 when there is no fle to be downloaded
-		TorFirefox.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
+		PdfCompressor.unzipFile(os.getcwd()+"/pdfcompressor.zip",os.getcwd())
 		os.remove(os.getcwd()+"/pdfcompressor.zip")
 
 	# print pdf_docs
@@ -134,6 +139,7 @@ def hack_paper():
 		checkSizeFlag = checkFileSize.check(final_file_path)
 		print "++++++++++ Removed last %s" %(k),'file +++++++++++++'
 		k = k + 1 
+	pdf_docs.append(final_file_path)
 	##=======================================================================================================
 
 	##Hindi text 
@@ -157,19 +163,19 @@ def hack_paper():
 		print status
 		if(status == 0):
 			print "Mail has been sent already..."
+			delete_files(pdf_docs,pdf_docs_merge)
 			return
 		print "SENDING EMAIL..............."
 		send_email.send_mail(configg.fromaddr,configg.password,configg.toaddr,subject,todaysDate+".pdf",final_file_path)
 
-		pdf_docs.append(final_file_path)
-		# pdf_docs.append(final_file_path_new)
-		Delete_Files.del_files(pdf_docs)
-		Delete_Files.del_files(pdf_docs_merge)
+		delete_files(pdf_docs,pdf_docs_merge)
+		# Delete_Files.del_files(pdf_docs)
+		# Delete_Files.del_files(pdf_docs_merge)
 
 		##updating cron Flag file when the job is done for the day
-
 		with open('/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatus.txt','w') as outFile:
 			outFile.write( Cur_date.strfTime())
+
 
 		
 	except Exception as e:
@@ -179,7 +185,12 @@ def hack_paper():
 
 	
 
-
+def delete_files(pdf_docs,pdf_docs_merge):
+	try:
+		Delete_Files.del_files(pdf_docs)
+		Delete_Files.del_files(pdf_docs_merge)
+	except Exception as e:
+		print "=====Files been removed=====",e
 '''
 def start_tor_watchdog(status)
 	if(status == 0):

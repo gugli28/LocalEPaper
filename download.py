@@ -17,8 +17,11 @@ import PdfCompressor
 def main():
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    file_path = dir_path + "/" + "doc.pdf"
-    download_file("http://epaper.jagran.com/epaperimages/25032018/muzaffarpur/24smt-pg1-0.pdf",file_path)
+    file_path = dir_path + "/" + "1.pdf"
+    filestatus = os.path.isfile(file_path)
+    if ( file_path or True):
+    	print "filestatus"
+    # download_file("http://epaper.jagran.com/epaperimages/25032018/muzaffarpur/24smt-pg1-0.pdf",file_path)
    
     # download_file("https://drive.google.com/file/d/1EqS7SQMGCz-XE5_Th7Lp_VXHZiuI12Vg/view",'hindu28feb.pdf')
     # filestatus = os.path.isfile('2.pdf')
