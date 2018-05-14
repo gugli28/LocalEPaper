@@ -21,7 +21,7 @@ import checkCronJob
 import TorFirefox
 import PdfCompressor
 
-
+import time
 
 
 pdf_docs_del = [] # this will store the file_path of the files to be deleted
@@ -35,7 +35,7 @@ def main():
 
 
 def Hindustan():
-	status = checkCronJob.checkCronStatus("/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatusH.txt")
+	status = checkCronJob.checkCronStatus(os.getcwd()+"/checkCronStatusH.txt")
 	# print status
 
 	if(status == 0):
@@ -90,7 +90,7 @@ def Hindustan():
 			print "Downloading...page no = ", pageno
 			## this fn ret value that ensures if we have got valid pdf, if not loop continues
 			flag = download.download_file2(pdf_url,file_path_del, browser)
-			time.sleep(2)
+			# time.sleep(2)
 		else:
 			print "FILE is already present"
 
@@ -160,20 +160,21 @@ def Hindustan():
 		## done in case when the more than one scripts run simultaneously. 
 		##this can happen when network is slow or the script 1 is taking long enough time to execute
 		print "Checking if mail is already sent ..... "
-		status = checkCronJob.checkCronStatus("/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatusH.txt")
+		status = checkCronJob.checkCronStatus(os.getcwd()+"/checkCronStatusH.txt")
 		print status
 		if(status == 0):
 			print "Mail has been sent already..."
+			delete_files(pdf_docs_del,pdf_docs_merge)
 			return
 		print "SENDING EMAIL..............."
 		send_email.send_mail(configg.fromaddr,configg.password,configg.toaddr,subject,todaysDate+".pdf",final_file_path)
-
+		delete_files(pdf_docs_del,pdf_docs_merge)
 		# Delete_Files.del_files(pdf_docs_merge)
 		# Delete_Files.del_files(pdf_docs_del)
 		# print "FILES DELETED"
 		##updating cron Flag file when the job is done for the day
 
-		with open('/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatusH.txt','w') as outFile:
+		with open(os.getcwd()+'/checkCronStatusH.txt','w') as outFile:
 			outFile.write( Cur_date.strfTime())
 
 		
@@ -186,7 +187,7 @@ def Hindustan():
 
 
 
-def delete_files(pdf_docs,pdf_docs_merge):
+def delete_files(pdf_docs_del,pdf_docs_merge):
 	try:
 		Delete_Files.del_files(pdf_docs_merge)
 		Delete_Files.del_files(pdf_docs_del)

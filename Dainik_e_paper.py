@@ -21,7 +21,7 @@ import TorFirefox
 import PdfCompressor
 # import startTor
 import hindustan
-
+import startTor
 ## this is use webdriver without display. We will start and close it when needed
 display = Display(visible=0, size=(1024, 768))
 def main():
@@ -33,6 +33,14 @@ def main():
 		print "change it in the code if you want otherwise"
 		print "------------------------SLEEP TIME-------------------------------"
 		return
+
+	##Starting TOR coment this part if u can start tor manually or to debug
+	torStatus = checkCronJob.checkCronStatus(os.getcwd()+"/checkTorStartStatus.txt")
+	if (torStatus):
+		startTor.start()
+	else:
+		print "Tor is already active"
+
 	# status = checkCronJob.checkCronStatus("/home/gugli/Documents/script_py/Dainik_Jagron/checkTorWatchdog.txt")
 	# start_tor_watchdog(status)
 	hack_paper()
@@ -41,7 +49,7 @@ def main():
 
 def hack_paper():
 	
-	status = checkCronJob.checkCronStatus("/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatus.txt")
+	status = checkCronJob.checkCronStatus(os.getcwd()+"/checkCronStatus.txt")
 	# print status
 
 	if(status == 0):
@@ -82,7 +90,7 @@ def hack_paper():
 			#this variable stores the file name of the compressed file yet to be downloaded
 			file_path_merge = dir_path + "/"+ str(pageno)+ "-min" +".pdf" 
 			
-			if (not os.path.isfile(file_path)):
+			if (not os.path.isfile(file_path_merge)):
 				print "Downloading...page no = ", pageno
 				## this fn ret value that ensures if we have got valid pdf, if not loop continues
 				flag = download.download_file2(url,file_path,browser)
@@ -92,7 +100,7 @@ def hack_paper():
 			
 			# flag = pdf_merger.check_valid_pdf(file_path)
 			##if file is present move on else check the flag val. Note the flag is assigned if cond-1 is flase
-			if(os.path.isfile(file_path) or flag == 0):
+			if(os.path.isfile(file_path_merge) or flag == 0):
 				pdf_docs.append(file_path)
 				pdf_docs_merge.append(file_path_merge) 
 				break #As soon as it gets a valid pdf add to the list 'pdf_docs' else skip
@@ -159,7 +167,7 @@ def hack_paper():
 		## done in case when the more than one scripts run simultaneously. 
 		##this can happen when network is slow or the script 1 is taking long enough time to execute
 		print "Checking if mail is already sent ..... "
-		status = checkCronJob.checkCronStatus("/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatus.txt")
+		status = checkCronJob.checkCronStatus(os.getcwd()+"/checkCronStatus.txt")
 		print status
 		if(status == 0):
 			print "Mail has been sent already..."
@@ -173,7 +181,7 @@ def hack_paper():
 		# Delete_Files.del_files(pdf_docs_merge)
 
 		##updating cron Flag file when the job is done for the day
-		with open('/home/gugli/Documents/script_py/Dainik_Jagron/checkCronStatus.txt','w') as outFile:
+		with open(os.getcwd()+'/checkCronStatus.txt','w') as outFile:
 			outFile.write( Cur_date.strfTime())
 
 

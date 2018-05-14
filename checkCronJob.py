@@ -44,7 +44,7 @@ def checkDate(str_date):
 	# print "str_today_date = ",str_today_date
 
 	if( str_today_date > logged_date ):
-		print "NOT SENT"
+		print "Logged date is of past"
 		return 1 ## the job is not done today.. YET . returns 1 so that further process is to be initiated
 	else:
 		# print "Logged date is same as todays date"
