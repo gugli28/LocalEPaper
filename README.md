@@ -3,7 +3,7 @@ And this script was created. B:)
 I thought of creating a cron job in my android but apparently it requires the android system to be rooted.
 Used Qpython Application on Android to run this script. 
 
-However I have Added Cron job on my ubuntu that executes the script once a day. I have not fixed a particular time rather I have made it conditional. 
+However I have Added Cron job on my `ubuntu` that executes the script once a day. I have not fixed a particular time rather I have made it conditional. 
 
 
 ## What does this script do ?
@@ -13,25 +13,27 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
   * As my main motto was to run it on android I have separated what lib are to be imported and what cmd are needed to install them in QPython ( Android App ).
 
 ## Conditional Cron
-  * whenever my system starts the script first checks the txt ( `checkCronStatus.txt` ) file.
+  * whenever my system starts the script first checks the txt file.
   * If the logged date is of today than the script doesn't execute
   * Else the script is executed and after completon it logs todays date in the txt file 
+  * First it checks if tor browser is started for the day `checkStartTorStatus.txt`.
+  * Same check is done with `checkCronStatus.txt` and `checkCronStatusH.txt`.
 
 ## Pdf Compression
   * I was blown to see the bytes of the pdf file downloaded from `http://epaper.livehindustan.com/` website. The file size is over 10 Mb. In some cases it exceeds 20Mb. Yes one pdf file. So just do the math for 20 pages of news paper.
   * I initially used System cmd to compress file but it was not very efficient `CompressFile.py`.
-  * So I choose to use online website `http://pdfcompressor.com/` (will use 'PCo' instead from now on). Its amazingly awesome. This site compressed file by 90%.
+  * So I choose to use online website `http://pdfcompressor.com/` . Its amazingly awesome. This site compressed file by 90%.
   * checkout the file `PdfCompressor.py`.
 
 
 ## TOR - Python - Selenium - webdriver
   * These tools are no less than  _Bramhastra_ Haahha! 
-  * Well while using selenium for the PCo, the main challenge was to not let my IP get blocked. This led me to use TOR.
+  * TOR is just necessary while using PYTHON
   * Use Firefox webdriver and changed the network preferences. See file `TorFirefox.py`.
 
 ## Watchdog
   * This file tracks any changes in the directory.
-  * Use this to make sure that unzipping of file is done only after file is completely downloaded.
+  * Used this to make sure that unzipping of file is done only after file is completely downloaded.
   * check the file `watchdogg.py`
   * Used `tqdm` to view the dowload progress. check `download.py`.
 
@@ -41,14 +43,27 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
   * execute `pip.main(['install', 'bs4'])`
   * execute `pip.main(['install', 'PyPDF2'])`
   * I have attached a sample of execution in Qpython. However I have changed the code for setting up conditional cron in Ubuntu.
-  * I have added much more libraries untill now( 5th May 2018). The very version was focused on Qpython. Now its totally dekstop mode script( I mean it has librabries than can be installed in Linux systems conveniently)
+  * I have added much more libraries untill now( 5th May 2018). The very first commit was focused on Qpython. Now its totally dekstop-mode script( I mean it has librabries than can be installed in Linux systems conveniently)
 
 ## RUN
   * change the config file
-  * import the libraries mentioned in the `import_lib.py`
   * add `to` id `from` id
   * run `python Dainik_e_paper.py` ( this runs both the file `Dainik_e_paper.py` and `hindustan.py` )
 
+## DEPENDENCIES
+  * pyvirtualdisplay
+  * BeautifulSoup
+  * urllib2
+  * selenium
+  * tqdm
+  * math
+  * PyPDF2
+  * requests
+  * smtplib, email
+  * wget
+  * TorFirefox
+  * multiprocessing
+  * watchdog
 
 ## ERROR and References
   * you might have to turn on "Allow less secure apps for your emailid"
@@ -63,4 +78,3 @@ However I have Added Cron job on my ubuntu that executes the script once a day. 
 ## Email sample 
    * ![image](Email_sample2.jpeg)
 
-## 
